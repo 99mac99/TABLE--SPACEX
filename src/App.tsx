@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import  {Table}  from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import RowFlight from './components/rowFlight';
+
+
 
 class App extends Component {
 	render() {
@@ -23,6 +26,7 @@ class App extends Component {
 							<td>@mdo</td>
 						</tr>
 					</tbody>
+					<RowFlight />
 				</Table>
 			</div>
 		);
