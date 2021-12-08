@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createClient } from 'urql';
+
+const client = createClient({
+  url: 'https://api.spacex.land/graphql/',
+});
+
+
 
 ReactDOM.render(
   <React.StrictMode>
