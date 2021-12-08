@@ -15,5 +15,5 @@ code {
 .mainContainer {
   display: flex;
   justify-content: center;
-  padding-top: 10rem;
+  padding: 10rem;
 }

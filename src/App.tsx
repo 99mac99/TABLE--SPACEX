@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import  {Table}  from 'react-bootstrap';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
 	render() {
 		return (
-			<div className = 'mainContainer'>
-				<Table striped bordered hover>
+			<div className='mainContainer'>
+				<Table striped bordered hover variant="dark">
 					<thead>
 						<tr>
-							<th>Ulubiony</th>
-							<th>Data</th>
 							<th>Nazwa misji</th>
+							<th>Data</th>
 							<th>Opis</th>
+							<th>Ulubiony</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -20,17 +21,6 @@ class App extends Component {
 							<td>Mark</td>
 							<td>Otto</td>
 							<td>@mdo</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td colSpan={2}>Larry the Bird</td>
-							<td>@twitter</td>
 						</tr>
 					</tbody>
 				</Table>
