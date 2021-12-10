@@ -17,3 +17,7 @@ code {
   justify-content: center;
   padding: 10rem;
 }
+
+.rowHead {
+  width: 160rem
+}

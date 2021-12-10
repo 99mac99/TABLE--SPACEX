@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createClient } from 'urql';
-
-const client = createClient({
-  url: 'https://api.spacex.land/graphql/',
-});
-
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apollo-client';
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <ApolloProvider client ={client}>
     <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
