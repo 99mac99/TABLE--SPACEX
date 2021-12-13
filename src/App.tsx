@@ -1,34 +1,45 @@
-import React, { Component } from 'react';
-import  {Col, Row, Table}  from 'react-bootstrap';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import React, { ButtonHTMLAttributes, Component } from 'react';
+import { Col, Row, Table } from 'react-bootstrap';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import RowFlight from './components/rowFlight';
 import './index.css';
 import { gql, useQuery } from '@apollo/client';
 import SpaceRow from './components/spaceRow';
-import { string } from 'prop-types';
 
+interface propsApp {
+	description: string;
+	date: number;
+	name: string;
+	results: string;
+	characters: string;
+	launches: string;
+	missions: string;
+	map: string;
+}
 const GET_MISSION = gql`
-{
-	missions {
-	  description
+	{
+		missions {
+			description
+		}
+		launches {
+			launch_date_utc
+			mission_name
+		}
 	}
-	launches {
-	  launch_date_utc
-	  mission_name
-	}
-  }
-`
+`;
 
- const App =(prop: { launch_date_utc: number; mission_name: string; description: string; }) => {
+// type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">;
 
-	const { data, loading, error } = useQuery(GET_MISSION);
-	if (error)
-		return <h1>error</h1>;
+// const App = React.forwardRef<HTMLButtonElement, Props>({props: propsApp}) =>
+
+const App = (props: propsApp,): JSX.Element => {
+	const { data, loading, error } = useQuery<propsApp>(GET_MISSION);
+	if (error) return <h1>error</h1>;
 
 
 	return (
 		<div className='mainContainer'>
-			<Table striped bordered hover variant="dark">
+			<Table striped bordered hover variant='dark'>
 				<thead>
 					<tr>
 						<th className='rowHead'>Nazwa misji</th>
@@ -38,24 +49,31 @@ const GET_MISSION = gql`
 					</tr>
 				</thead>
 				<tbody>
-
 					{loading ? (
 						<p>loading...</p>
 					) : (
-						data.characters.results.map(({launch_date_utc, mission_name, description  }) => (
-							<SpaceRow
-								date={prop.launch_date_utc}
-								name={prop.mission_name}
-								description={prop.description} />
-						))
+						data!.launches.map(
+							({
+								launch_date_utc,
+								mission_name,
+								description,
+							}: {
+								launch_date_utc: number;
+								mission_name: string;
+								description: string;
+							}) => (
+								<SpaceRow
+									launch_date_utc={launch_date_utc}
+									mission_name={mission_name}
+									description={description}
+								/>
+							)
+						)
 					)}
-
 				</tbody>
 			</Table>
 		</div>
 	);
-
-}
-
+};
 
 export default App;

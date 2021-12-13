@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
  interface spaceRow  { launch_date_utc: number; mission_name: string; description: string; }
 
-const SpaceRow: React.FC<spaceRow> = ({launch_date_utc, mission_name, description}) => (
+const SpaceRow: React.FC<spaceRow> = ({launch_date_utc, mission_name, description,}) => (
     <>
     <Table striped bordered hover variant="dark">
         <tr>
