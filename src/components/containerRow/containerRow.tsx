@@ -2,10 +2,11 @@ import React from 'react';
 import { isThisTypeNode } from 'typescript';
 import Row from './Row/row';
 
-function SpaceRow() {
+
+const  SpaceRow = () => {
 	return (
 		<tbody>
-            <this.props.flights.map(row ={'>'} <Row key={Row.id} {...Row} /> )
+            {this.props.flights.map((row: any) => <Row  {...Row} /> )}
 			<Row />
 		</tbody>
 	);

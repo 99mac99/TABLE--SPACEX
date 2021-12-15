@@ -1,13 +1,90 @@
-import React, { ButtonHTMLAttributes, Component } from 'react';
+import React, { Component } from 'react';
 import { Col, Row, Table } from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import RowFlight from './components/rowFlight';
 import './index.css';
 import { gql, useQuery } from '@apollo/client';
-import { string } from 'prop-types';
-import { JsxEmit } from 'typescript';
 import Header from './components/Header/header';
 import SpaceRow from'./components/containerRow/containerRow';
+
+
+type MyProps ={
+	flights: {};
+}
+
+interface MyState   {
+	flights: {} ;
+}
+
+class App extends Component<MyProps,MyState>{
+
+
+
+	constructor(props: MyState){
+		super(props);
+
+
+
+		this.state ={
+			flights: [
+				{
+					id: 1 ,
+					date: 21/37/2137 ,
+				nameMission: "Lot na marsa",
+				description: 'Super lot'
+                },
+				{
+					id: 2 ,
+					date: 21/37/2137 ,
+					nameMission: "Lot na marsa",
+					description: 'Super lot'
+                },
+				{
+				id: 3 ,
+				date: 21/37/2137 ,
+				nameMission: "Lot na marsa",
+				description: 'Super lot'
+			},
+				{
+				id: 4 ,
+				date: 21/37/2137 ,
+				nameMission: "Lot na marsa",
+				description: 'Super lot'
+                },
+				{
+					id: 5 ,
+					date: 21/37/2137 ,
+					nameMission: "Lot na marsa",
+					description: 'Super lot'
+                }
+			]
+		}
+	}
+	
+	render() {
+		
+		const spaceFlights = {
+			flights: this.state.flights
+		}
+		
+		return (
+			<Table striped bordered hover>
+				< Header />
+				<SpaceRow  {...spaceFlights} />
+			</Table>
+		);
+	}
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
 
 // interface propsApp {
 // 	description: string;
@@ -72,54 +149,3 @@ import SpaceRow from'./components/containerRow/containerRow';
 // 		</div>
 // 	);
 // };
-
-class App extends Component {
-	constructor(props){
-		super(props);
-		this.state ={
-			flights: [
-				{
-				id: 1 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
-				{
-				id: 2 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
-				{
-				id: 3 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
-				{
-				id: 4 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
-				{
-				id: 5 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                }
-			]
-		}
-	}
-
-	render(): React.ReactNode {
-		return (
-			<Table striped bordered hover>
-				< Header />
-				<SpaceRow flights={this.state.flights} />
-			</Table>
-		);
-	}
-}
-
-export default App;
