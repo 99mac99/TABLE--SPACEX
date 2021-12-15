@@ -2,7 +2,7 @@ import {ApolloClient, InMemoryCache} from '@apollo/client'
 
 interface aClient{
     cache: string;
-    ursi : string;
+    uri : string;
 }
 
 const client = new ApolloClient ({
