@@ -17,12 +17,8 @@ interface MyState   {
 
 class App extends Component<MyProps,MyState>{
 
-
-
 	constructor(props: MyState){
 		super(props);
-
-
 
 		this.state ={
 			flights: [

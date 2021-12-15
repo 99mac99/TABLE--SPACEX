@@ -3,10 +3,10 @@ import { isThisTypeNode } from 'typescript';
 import Row from './Row/row';
 
 
-const  SpaceRow = () => {
+const  SpaceRow = (props:{flights: any[]}) => {
 	return (
 		<tbody>
-            {this.props.flights.map((row: any) => <Row  {...Row} /> )}
+            {props.flights.map((row: any) => <Row key={Row.id} {...Row} /> )}
 			<Row />
 		</tbody>
 	);

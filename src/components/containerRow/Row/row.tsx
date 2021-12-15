@@ -5,9 +5,9 @@ function Row() {
 		<>
 			<tr>
 				<td>1</td>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
+				<td>props.date</td>
+				<td>props.nameMission</td>
+				<td>props.description</td>
 			</tr>
 		</>
 	);
