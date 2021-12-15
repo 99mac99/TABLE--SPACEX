@@ -22,16 +22,16 @@ class App extends Component<MyProps,MyState>{
 		this.state ={
 			flights: [
 				{
-					id: 1 ,
-					date: 21/37/2137 ,
+				id: 1 ,
+				date: 21/37/2137 ,
 				nameMission: "Lot na marsa",
 				description: 'Super lot'
                 },
 				{
-					id: 2 ,
-					date: 21/37/2137 ,
-					nameMission: "Lot na marsa",
-					description: 'Super lot'
+				id: 2 ,
+				date: 21/37/2137 ,
+				nameMission: "Lot na marsa",
+				description: 'Super lot'
                 },
 				{
 				id: 3 ,
@@ -46,10 +46,10 @@ class App extends Component<MyProps,MyState>{
 				description: 'Super lot'
                 },
 				{
-					id: 5 ,
-					date: 21/37/2137 ,
-					nameMission: "Lot na marsa",
-					description: 'Super lot'
+				id: 5 ,
+				date: 21/37/2137 ,
+				nameMission: "Lot na marsa",
+				description: 'Super lot'
                 }
 			]
 		}
