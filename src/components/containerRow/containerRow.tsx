@@ -6,7 +6,7 @@ import Row from './Row/row';
 const  SpaceRow = (props:{flights: any[]}) => {
 	return (
 		<tbody>
-            {props.flights.map((row: any) => <Row key={Row.id} {...Row} /> )}
+            {props.flights.map((row: any) => <Row  {...Row} /> )}
 			<Row />
 		</tbody>
 	);

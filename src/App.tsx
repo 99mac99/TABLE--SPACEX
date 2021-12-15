@@ -8,18 +8,17 @@ import SpaceRow from'./components/containerRow/containerRow';
 
 
 type MyProps ={
-	flights: {};
+	flights?: {};
 }
 
 interface MyState   {
-	flights: {} ;
+	flights: any[] ;
 }
 
 class App extends Component<MyProps,MyState>{
 
 	constructor(props: MyState){
 		super(props);
-
 		this.state ={
 			flights: [
 				{
