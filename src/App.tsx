@@ -8,11 +8,21 @@ import SpaceRow from'./components/containerRow/containerRow';
 
 
 type MyProps ={
-	flights?: (string | number)[];
+	flights?: {
+		id: number;
+		date: number;
+		nameMission: string;
+		description: string;
+		}  | any[] | undefined;
 }
 
 interface MyState   {
-	flights?: any[];
+	flights?: {
+		id: number;
+		date: number;
+		nameMission: string;
+		description: string;
+		}  | any[] | undefined;
 }
 
 class App extends Component<MyProps,MyState>{
@@ -52,20 +62,20 @@ class App extends Component<MyProps,MyState>{
                 }
 			]
 		}
-
 	}
+	
 	
 	
 	render() {
 		
-		const spaceFlights = {
-			flights: this.state.flights
-		}
+		// const spaceFlights = {
+		// 	flights: this.state.flights
+		// }
 		
 		return (
 			<Table striped bordered hover>
 				< Header />
-				<SpaceRow  {...spaceFlights} />
+				<SpaceRow  flights = {this.state.flights} />
 			</Table>
 		);
 	}
