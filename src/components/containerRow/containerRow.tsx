@@ -1,15 +1,28 @@
-import React from 'react';
+import { string, number } from 'prop-types';
+import React, { Component } from 'react';
 import { isThisTypeNode } from 'typescript';
+import row from './Row/row';
 import Row from './Row/row';
 
+class SpaceRow extends Component {
+		props: any;
+		flights: string | number | undefined
+		id!: number; 
+	
 
-const  SpaceRow = (props:{flights: any[]}) => {
-	return (
-		<tbody>
-            {props.flights.map((row: any) => <Row  {...Row} /> )}
-			<Row />
-		</tbody>
-	);
+	render(): JSX.Element {
+		return (
+			<tbody>
+				{this.props.flights.map((row: any) => (
+					<Row  key = {this.props.flights.id} {...Row} />
+				))}
+			</tbody>
+		);
+				}
+	
 }
+
+// const  SpaceRow = (props:{flights: any[]}) => {
+// }
 
 export default SpaceRow;

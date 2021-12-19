@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Row(props: any) {
+function Row(props: string | number | any) {
 	return (
 		<>
 			<tr>
