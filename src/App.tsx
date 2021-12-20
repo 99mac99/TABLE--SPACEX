@@ -4,94 +4,100 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import { gql, useQuery } from '@apollo/client';
 import Header from './components/Header/header';
-import SpaceRow from'./components/containerRow/containerRow';
-import * as Icon from 'react-bootstrap-icons';
+import SpaceRow from './components/containerRow/containerRow';
 
+type MyProps = {
+	flights?:
+		| {
+				id: number;
+				date: number;
+				nameMission: string;
+				description: string;
+		  }
+		| any[]
+		| undefined;
+};
 
-type MyProps ={
-	flights?: {
-		id: number;
-		date: number;
-		nameMission: string;
-		description: string;
-		}  | any[] | undefined;
+interface MyState {
+	flights?:
+		| {
+				id: number;
+				date: number;
+				nameMission: string;
+				description: string;
+		  }
+		| any[]
+		| undefined;
 }
 
-interface MyState   {
-	flights?: {
-		id: number;
-		date: number;
-		nameMission: string;
-		description: string;
-		}  | any[] | undefined;
-}
-
-class App extends Component<MyProps,MyState>{
-	constructor(props: MyState){
+class App extends Component<MyProps, MyState> {
+	[x: string]: any;
+	constructor(props: MyState) {
 		super(props);
-		this.state ={
+		this.state = {
 			flights: [
 				{
-				id: 1 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
+					id: 1,
+					date: 2137,
+					nameMission: 'Lot na marsa',
+					description: 'Super lot',
+				},
 				{
-				id: 2 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super odlot'
-                },
+					id: 2,
+					date: 2138,
+					nameMission: 'Sot na marsa',
+					description: 'Super odlot',
+				},
 				{
-				id: 3 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-			},
+					id: 3,
+					date: 2139,
+					nameMission: 'Bot na marsa',
+					description: 'Super lot',
+				},
 				{
-				id: 4 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                },
+					id: 4,
+					date: 2131,
+					nameMission: 'Aot na marsa',
+					description: 'Super lot',
+				},
 				{
-				id: 5 ,
-				date: 21/37/2137 ,
-				nameMission: "Lot na marsa",
-				description: 'Super lot'
-                }
-			]
-		}
+					id: 5,
+					date: 2136,
+					nameMission: 'Cot na marsa',
+					description: 'Super lot',
+				},
+			],
+		};
 	}
-	
-	
-	
+
+	//  newNameMission: string[] = [...this.state.flights?.nameMission]
+
+	filtrHandler(letters: any) {
+		const flights = this.state.flights?.nameMission.sort(function (
+			a: { nameMission: string },
+			b: { nameMission: string }
+		) {
+			if (a.nameMission.toLowerCase() < b.nameMission.toLowerCase()) return -1;
+			if (a.nameMission.toLowerCase() > b.nameMission.toLowerCase()) return 1;
+			return 0;
+		}).map;
+	}
+
 	render() {
-		
 		// const spaceFlights = {
 		// 	flights: this.state.flights
 		// }
-		
+
 		return (
 			<Table striped bordered hover>
-				< Header />
-				<SpaceRow  flights = {this.state.flights} />
+				<Header />
+				<SpaceRow flights={this.state.flights} />
 			</Table>
 		);
 	}
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
 
 // interface propsApp {
 // 	description: string;

@@ -1,0 +1,13 @@
+.nameMission {
+    display: flex;
+    justify-content: space-between;
+    color:black;
+    background-color: transparent;
+    align-items: center;
+ }
+ 
+ .button {
+   background-color: black;
+   border: none;
+ 
+ }
