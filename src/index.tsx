@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './apollo-client';
+import * as Icon from 'react-bootstrap-icons';
 
 
 ReactDOM.render(

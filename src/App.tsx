@@ -5,6 +5,7 @@ import './index.css';
 import { gql, useQuery } from '@apollo/client';
 import Header from './components/Header/header';
 import SpaceRow from'./components/containerRow/containerRow';
+import * as Icon from 'react-bootstrap-icons';
 
 
 type MyProps ={
@@ -40,7 +41,7 @@ class App extends Component<MyProps,MyState>{
 				id: 2 ,
 				date: 21/37/2137 ,
 				nameMission: "Lot na marsa",
-				description: 'Super lot'
+				description: 'Super odlot'
                 },
 				{
 				id: 3 ,
