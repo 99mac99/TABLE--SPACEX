@@ -1,20 +1,21 @@
 import React from 'react';
 import IconRow from './IconRow/IconRow';
-import * as Icon from 'react-bootstrap-icons';
 
-
-
-function Row(props: string | number | any) {
+function SpaceRow(props: any) {
 	return (
 		<>
-			<tr> 
-				<td><IconRow /></td>
-				<td>{props.date}</td>
-				<td>{props.nameMission}</td>
-				<td>{props.description}</td>
-			</tr>
+			<tbody >
+				<tr >
+					<td>
+						<IconRow />
+					</td>
+					<td>{props.launch_date_utc}</td>
+					<td>{props.mission_name}</td>
+					<td>{props.launches}</td>
+				</tr>
+			</tbody>
 		</>
 	);
 }
 
-export default Row;
+export default SpaceRow;
