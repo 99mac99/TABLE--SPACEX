@@ -25,8 +25,7 @@ interface MyState {
 }
 
 function App(): JSX.Element {
-
-	const [state, setState] = useState< MyState | any | null >()
+	const [state, setState] = useState<any | null>();
 
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
 
@@ -45,26 +44,38 @@ function App(): JSX.Element {
 	}, [data]);
 	if (error) return <h1>error</h1>;
 
-
-
 	return (
 		<Table striped bordered hover>
 			<Header />
 			{loading ? (
 				<p>loading...</p>
 			) : (
-				( state || []).map(
-					({launch_date_utc, mission_name,  mission_id, description,id } : {launch_date_utc : number, mission_name: string,  mission_id: number, description: string,id: number }) => (
+				(state || []).map(
+					({
+						launch_date_utc,
+						mission_name,
+						mission_id,
+						description,
+						id,
+					}: {
+						launch_date_utc: number;
+						mission_name: string;
+						mission_id: number;
+						description: string;
+						id: number;
+					}) => (
 						<SpaceRow
 							key={id}
 							launch_date_utc={launch_date_utc}
 							mission_name={mission_name}
 							description={description}
 							mission_id={mission_id}
-							id={id} />
+							id={id}
+						/>
 					)
 				)
-			)})
+			)}
+			)
 		</Table>
 	);
 }
