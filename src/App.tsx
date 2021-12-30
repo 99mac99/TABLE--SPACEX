@@ -26,20 +26,16 @@ interface MyState {
 
 function App(): JSX.Element {
 
-	const [state, setState] = useState< null | any>([])
+	const [state, setState] = useState< null | any>()
 
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
-	console.log('bycz', data);
+
 	useEffect(() => {
 		if (data) {
-			console.log('bycz', data);
 			const normalizedData = data.launches.map((launch) => {
-				console.log('-----', launch);
-
 				const found = data.missions.find((mission: { id: string }) =>
 					launch.mission_id.includes(mission.id)
 				);
-
 				return { ...launch };
 			});
 
