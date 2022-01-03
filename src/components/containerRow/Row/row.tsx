@@ -11,7 +11,7 @@ function SpaceRow(props: any) {
 					</td>
 					<td>{props.launch_date_utc}</td>
 					<td>{props.mission_name}</td>
-					<td>{props.launches}</td>
+					<td>{props.description}</td>
 				</tr>
 			</tbody>
 		</>

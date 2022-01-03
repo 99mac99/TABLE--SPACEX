@@ -7,63 +7,55 @@ import Header from './components/Header/header';
 import { GET_MISSION } from './getMission';
 import SpaceRow from './components/containerRow/Row/row';
 
+interface ILaunch {
+	mission_id: string[];
+	launch_date_utc: number;
+	mission_name: string;
+	description: string[];
+	id: number;
+	found: boolean[];
+}
+
 interface MyState {
-	prevState: null;
-	launches: {
-		mission_id: string[];
-		launch_date_utc: number;
-		mission_name: string;
-		description: string;
-		id: number;
-	}[];
-	missions: { id: string; description: string }[];
-	loading: string;
-	data: {
-		missions: { id: string; description: string }[];
-		launch: { mission_id: string[] }[];
-	};
+	launches: ILaunch[];
+	missions: { id: string; description: string[] }[];
+	found: boolean[];
+}
+// description: string
+
+interface IState extends ILaunch {
+	description: string[];
+	found: boolean[];
 }
 
 function App(): JSX.Element {
-	const [state, setState] = useState<any | null>();
+	const [state, setState] = useState<IState[]>([]);
 
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
 
 	useEffect(() => {
 		if (data) {
 			const normalizedData = data.launches.map((launch) => {
-				const found = data.missions.find((mission: { id: string }) =>
+				const found = data.missions.map((mission: { id: string }) =>
 					launch.mission_id.includes(mission.id)
-				);
-				return { ...launch };
-			});
-
-			console.log(normalizedData);
+					);
+					// setState(found)
+					return { ...launch };
+				});
 			setState(normalizedData);
 		}
 	}, [data]);
+
 	if (error) return <h1>error</h1>;
 
 	return (
 		<Table striped bordered hover>
 			<Header />
 			{loading ? (
-				<p>loading...</p>
+				<h1>loading...</h1>
 			) : (
-				(state || []).map(
-					({
-						launch_date_utc,
-						mission_name,
-						mission_id,
-						description,
-						id,
-					}: {
-						launch_date_utc: number;
-						mission_name: string;
-						mission_id: number;
-						description: string;
-						id: number;
-					}) => (
+				data!.launches.map(
+					({ launch_date_utc, mission_name, mission_id, description, id }) => (
 						<SpaceRow
 							key={id}
 							launch_date_utc={launch_date_utc}
