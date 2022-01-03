@@ -7,25 +7,25 @@ import Header from './components/Header/header';
 import { GET_MISSION } from './getMission';
 import SpaceRow from './components/containerRow/Row/row';
 
+
 interface ILaunch {
 	mission_id: string[];
 	launch_date_utc: number;
 	mission_name: string;
 	description: string[];
 	id: number;
-	found: boolean[];
+	found: boolean[] | boolean;
 }
 
 interface MyState {
 	launches: ILaunch[];
 	missions: { id: string; description: string[] }[];
-	found: boolean[];
+	found: boolean[] | boolean;
 }
-// description: string
 
 interface IState extends ILaunch {
 	description: string[];
-	found: boolean[];
+	found: boolean[] | boolean;
 }
 
 function App(): JSX.Element {
@@ -38,10 +38,10 @@ function App(): JSX.Element {
 			const normalizedData = data.launches.map((launch) => {
 				const found = data.missions.map((mission: { id: string }) =>
 					launch.mission_id.includes(mission.id)
-					);
-					// setState(found)
-					return { ...launch };
-				});
+				);
+				// setState(found);
+				return { ...launch };
+			});
 			setState(normalizedData);
 		}
 	}, [data]);
@@ -54,7 +54,7 @@ function App(): JSX.Element {
 			{loading ? (
 				<h1>loading...</h1>
 			) : (
-				data!.launches.map(
+				state.map(
 					({ launch_date_utc, mission_name, mission_id, description, id }) => (
 						<SpaceRow
 							key={id}

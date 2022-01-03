@@ -7,8 +7,8 @@ function Header() {
 		<thead>
 			<tr>
 				<th>Ulubiony</th>
-				<th><Date /></th>
 				<th>< NameMission /></th>
+				<th><Date /></th>
 				<th>Opis</th>
 			</tr>
 		</thead>
@@ -16,3 +16,21 @@ function Header() {
 }
 
 export default Header;
+
+
+
+
+// function Header() {
+// 	return (
+// 		<thead>
+// 			<tr>
+// 				<th>Ulubiony</th>
+// 				<th><Date /></th>
+// 				<th>< NameMission /></th>
+// 				<th>Opis</th>
+// 			</tr>
+// 		</thead>
+// 	);
+// }
+
+// export default Header;
