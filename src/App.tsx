@@ -12,6 +12,8 @@ import Header from './components/Header/header';
 import { GET_MISSION } from './getMission';
 import SpaceRow from './components/containerRow/Row/row';
 import IconRow from './components/containerRow/Row/IconRow/IconRow';
+import styles from'./headers.module.css';
+import { Button } from 'react-bootstrap';
 
 interface ILaunch {
 	id: string;
@@ -65,7 +67,7 @@ function App(): JSX.Element {
 	const headers: {key: SortKeys, label: string}[] = [
 		{ key: 'mission_name', label: 'Nazwa' },
 		{ key: 'launch_date_utc', label: 'Data' },
-		{ key: 'description', label: 'Opis' },
+		// { key: 'description', label: 'Opis' },
 	];
 	
 	function sortData({
@@ -102,14 +104,12 @@ function App(): JSX.Element {
 		onClick: MouseEventHandler<HTMLButtonElement>;
 	}): JSX.Element {
 		return (
-			<button onClick = {onClick}>
-				<p> przycisk </p>
-			</button>
+			<Button className={`${styles.button} bi bi-arrow-down-up btn-sm`} onClick={onClick}></Button>
+
 		);
 	}
 
 	function changeSort(key: SortKeys) {
-	
 			setSortOrder(sortOrder === 'ascn' ? 'desc' : 'ascn')
 			setSortKey(key);
 	}
@@ -117,12 +117,13 @@ function App(): JSX.Element {
 	
 	return (
 		<Table striped bordered hover>
-			<thead>
-				<tr>
-					<th>Ulubione</th>
+			<thead >
+				<tr >
+					<th className = {`${styles.headers}`}>Ulubione</th>
 					{headers.map((roww) => {
 						return <th key={roww.key}  >{roww.label} <SortButton columnKey={roww.key}  onClick={() => changeSort(roww.key)} {...{sortOrder, sortKey}} /></th>;
 					})}
+					<th className = {`${styles.headers}`}>Opis</th>
 				</tr>
 			</thead>
 			{loading ? (

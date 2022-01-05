@@ -1,10 +1,14 @@
 import React from 'react';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import styles from './iconRow.module.css'
 
 function IconRow() {
 	return (
+
 		<>
-				<i className="bi bi-bookmark "></i>
+		<div className = {`${styles.icon}`}>
+				<i className="bi bi-bookmark"></i>
+		</div>
 		</>
 	);
 }
