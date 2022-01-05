@@ -63,8 +63,8 @@ function App(): JSX.Element {
 	type SortOrder = 'ascn' | 'desc';
 
 	const headers: {key: SortKeys, label: string}[] = [
-		{ key: 'launch_date_utc', label: 'Data' },
 		{ key: 'mission_name', label: 'Nazwa' },
+		{ key: 'launch_date_utc', label: 'Data' },
 		{ key: 'description', label: 'Opis' },
 	];
 	
