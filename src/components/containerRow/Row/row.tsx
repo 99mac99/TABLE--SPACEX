@@ -1,8 +1,7 @@
 import React from 'react';
 import IconRow from './IconRow/IconRow';
 
-
-function SpaceRow (props : any) {
+function SpaceRow(props: any) {
 	return (
 		<>
 			<tbody>
@@ -12,13 +11,11 @@ function SpaceRow (props : any) {
 					</td>
 					<td>{props.mission_name}</td>
 					<td>{props.launch_date_utc}</td>
-					<td>{props.description}
-					</td>
+					<td>{props.description}</td>
 				</tr>
 			</tbody>
 		</>
 	);
 }
-
 
 export default SpaceRow;
