@@ -6,9 +6,7 @@ function IconRow() {
 	return (
 
 		<>
-		<div className = {`${styles.icon}`}>
-				<i className="bi bi-bookmark"></i>
-		</div>
+			
 		</>
 	);
 }
