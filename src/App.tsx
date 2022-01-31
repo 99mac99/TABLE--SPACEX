@@ -26,10 +26,11 @@ interface ILaunch {
 }
 
 interface IMission {
+	rocket: any;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
-	description: string[];
+	description: string;
 }
 interface MyState {
 	item: string[] | boolean | number;
@@ -77,6 +78,7 @@ function App(): JSX.Element {
 				return { ...launch, missions };
 			});
 			setState(normalizedData);
+			console.log(normalizedData);
 		}
 	}, [data]);
 
@@ -172,7 +174,14 @@ function App(): JSX.Element {
 				) : (
 					sortedData().map(
 						(
-							{ launch_date_utc, mission_name, mission_id, description, id },
+							{
+								launch_date_utc,
+								mission_name,
+								mission_id,
+								description,
+								id,
+								missions,
+							},
 							index,
 							item
 						) => (
@@ -199,7 +208,11 @@ function App(): JSX.Element {
 								<td>
 									<Moment date={launch_date_utc} format='dd MM yyyy, HH:mm' />
 								</td>
-								<td>{description}</td>
+								<td width='50%'>
+									{missions.map((rocket: any) => (
+										<a>{rocket.description}</a>
+									))}
+								</td>
 							</tr>
 						)
 					)
