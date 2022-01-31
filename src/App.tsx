@@ -12,8 +12,11 @@ import { GET_MISSION } from './getMission';
 import styles from './headers.module.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Moment from 'react-moment';
+// import 'moment-timezone';
 
 interface ILaunch {
+	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	mission_id: string[];
@@ -23,11 +26,13 @@ interface ILaunch {
 }
 
 interface IMission {
+	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	description: string[];
 }
 interface MyState {
+	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	launches: ILaunch[];
@@ -35,6 +40,7 @@ interface MyState {
 }
 
 interface IState extends ILaunch {
+	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	missions: (IMission | undefined)[];
@@ -52,6 +58,14 @@ function App(): JSX.Element {
 			sortData({ tableData: state, sortKey, reverse: sortOrder === 'desc' }),
 		[state, sortKey, sortOrder]
 	);
+
+	// useEffect(() => {
+	// 	// window.localStorage.setItem(item , check)
+	// 	if(check) {
+	// 		const checkBoxes = check.forEach( true, ,  )
+	// 	}
+
+	// },[check]);
 
 	useEffect(() => {
 		if (data) {
@@ -130,14 +144,6 @@ function App(): JSX.Element {
 		);
 		setCheck(updatedCheckedState);
 		console.log(updatedCheckedState);
-
-		// const addDataIntoCache = updatedCheckedState.filter(( item, index) => item === true ? position : index
-
-
-		// )
-		// 	console.log(addDataIntoCache)
-		// 	setCheck(addDataIntoCache)
-		
 	};
 
 	return (
@@ -167,23 +173,32 @@ function App(): JSX.Element {
 					sortedData().map(
 						(
 							{ launch_date_utc, mission_name, mission_id, description, id },
-							index
+							index,
+							item
 						) => (
-							<tr>
+							<tr key={index}>
 								<td>
 									<div className={`${styles.headers}`}>
 										<input
 											// id={`custom-checkbox-${index}`}
 											type='checkbox'
 											checked={check[index]}
-											onChange={() => handleOnChange(index)}
+											onChange={() => {
+												localStorage.setItem(
+													JSON.stringify(index),
+													mission_name
+												);
+												handleOnChange(index);
+											}}
 
 											// onChange={() => addDataIntoCache( 'cache') }
 										></input>
 									</div>
 								</td>
 								<td>{mission_name}</td>
-								<td>{launch_date_utc}</td>
+								<td>
+									<Moment date={launch_date_utc} format='dd MM yyyy, HH:mm' />
+								</td>
 								<td>{description}</td>
 							</tr>
 						)
@@ -195,5 +210,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-
-
