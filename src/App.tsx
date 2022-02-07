@@ -13,9 +13,12 @@ import styles from './headers.module.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Moment from 'react-moment';
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
+
 // import 'moment-timezone';
 
 interface ILaunch {
+	i: number | string,
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -26,6 +29,7 @@ interface ILaunch {
 }
 
 interface IMission {
+	i: number | string,
 	rocket: any;
 	item: string[] | boolean | number;
 	index: number;
@@ -33,6 +37,7 @@ interface IMission {
 	description: string;
 }
 interface MyState {
+	i: number | string,
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -41,6 +46,7 @@ interface MyState {
 }
 
 interface IState extends ILaunch {
+	i: number | string,
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -52,39 +58,21 @@ function App(): JSX.Element {
 	const [sortKey, setSortKey] = useState<SortKeys>('id');
 	const [sortOrder, setSortOrder] = useState<SortOrder>('ascn');
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
-	const [check, setCheck] = useState(new Array(10).fill(false));
+	const [favorites, setFavorites] = useState([] as Array<number>);
 	
-
 	const sortedData = useCallback(
 		() =>
 			sortData({ tableData: state, sortKey, reverse: sortOrder === 'desc' }),
 		[state, sortKey, sortOrder]
 	);
 
-
-	useEffect(() =>{
-
-		function boxx (item: boolean) {
-			return item === true
+	const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
+	useEffect(() => {
+		if( getArray !==0) {
+			setFavorites([...getArray])
 		}
+	}, [])
 
-		const boxFilter = check.filter(boxx)
-		console.log(boxFilter)
-
-		function addTo (item:any) {
-			return localStorage.setItem('item', item)
-		}
-
-		boxFilter.forEach(addTo)
-
-		// const box = check.map((item, index ) => item === true ? localStorage.setItem('index', JSON.stringify(index)) : 'didnt work')
-		// console.log(box)
-
-
-
-	}, [check])
-
-	
 	useEffect(() => {
 		if (data) {
 			const normalizedData = data.launches.map((launch) => {
@@ -157,16 +145,29 @@ function App(): JSX.Element {
 		setSortKey(key);
 	}
 
-
-	const handleOnChange = (position: number | string) => {
-		const updatedCheckedState = check.map((item, index) =>
-			index === position ? !item : item
-		);
-		setCheck(updatedCheckedState)
-		
-		
-		
-	};
+	const addFav = (props: any) => {
+		let array = favorites;
+		let addArray = true;
+		array.map((item: any, key: number) => {
+			if( item === props.i) {
+				array.splice(key, 1);
+				addArray = false;
+			}
+		});
+		if(addArray) {
+			array.push(props.i);
+		}
+		setFavorites([...array])
+		localStorage.setItem("favorites", JSON.stringify(favorites));
+		let storage = localStorage.getItem('favItem' + (props.i) || '0')
+		if (storage === null) {
+			localStorage.setItem(('favItem' + (props.i)), JSON.stringify(props.items));
+		}
+		else {
+			localStorage.removeItem('favItem' + (props.i));
+		}
+		console.log(favorites)
+	}
 
 	return (
 		<Table striped bordered hover>
@@ -202,27 +203,22 @@ function App(): JSX.Element {
 								id,
 								missions,
 							},
-							index,
-							item
+							i,
+							items,
 						) => (
 							<tr >
 								<td>
-									<div className={`${styles.headers}`}>
-										<input
-											id={id}
-											type='checkbox'
-											checked={check[index]}
-											onChange={() => {
-											// 	localStorage.setItem(
-											// 		JSON.stringify(index),
-											// 		mission_name
-											// 	);
-											// 	handleOnChange(index);
-											handleOnChange(index)
-											}
-											}
-										></input>
-									</div>
+									{favorites.includes(i) ? (
+										<IoIosHeart 
+										onClick={() => addFav({ items, i})}
+										style={{ color: 'blue'}}
+										/>
+									): (
+										<IoIosHeartEmpty 
+										onClick={() => addFav({ items, i})}
+										style={{ color: 'blue'}}
+										/>
+									)}
 								</td>
 								<td>{mission_name}</td>
 								<td>
