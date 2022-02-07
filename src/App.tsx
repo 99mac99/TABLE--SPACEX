@@ -18,7 +18,7 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 // import 'moment-timezone';
 
 interface ILaunch {
-	i: number | string,
+	i: string  | number ;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -29,7 +29,7 @@ interface ILaunch {
 }
 
 interface IMission {
-	i: number | string,
+	i: string  | number ;
 	rocket: any;
 	item: string[] | boolean | number;
 	index: number;
@@ -37,7 +37,7 @@ interface IMission {
 	description: string;
 }
 interface MyState {
-	i: number | string,
+	i: string  | number ;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -46,7 +46,7 @@ interface MyState {
 }
 
 interface IState extends ILaunch {
-	i: number | string,
+	i: string  | number ;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -59,7 +59,7 @@ function App(): JSX.Element {
 	const [sortOrder, setSortOrder] = useState<SortOrder>('ascn');
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
 	const [favorites, setFavorites] = useState([] as Array<number>);
-	
+
 	const sortedData = useCallback(
 		() =>
 			sortData({ tableData: state, sortKey, reverse: sortOrder === 'desc' }),
@@ -68,10 +68,10 @@ function App(): JSX.Element {
 
 	const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
 	useEffect(() => {
-		if( getArray !==0) {
-			setFavorites([...getArray])
+		if (getArray !== 0) {
+			setFavorites([...getArray]);
 		}
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		if (data) {
@@ -96,7 +96,7 @@ function App(): JSX.Element {
 	const headers: { key: SortKeys; label: string }[] = [
 		{ key: 'mission_name', label: 'Nazwa' },
 		{ key: 'launch_date_utc', label: 'Data' },
-		// { key: 'description', label: 'Opis' },
+		// { key: 'i', label: 'Ulubione' },
 	];
 
 	function sortData({
@@ -149,25 +149,25 @@ function App(): JSX.Element {
 		let array = favorites;
 		let addArray = true;
 		array.map((item: any, key: number) => {
-			if( item === props.i) {
+			if (item === props.i) {
 				array.splice(key, 1);
 				addArray = false;
 			}
 		});
-		if(addArray) {
+		if (addArray) {
 			array.push(props.i);
 		}
-		setFavorites([...array])
-		localStorage.setItem("favorites", JSON.stringify(favorites));
-		let storage = localStorage.getItem('favItem' + (props.i) || '0')
+		setFavorites([...array]);
+		localStorage.setItem('favorites', JSON.stringify(favorites));
+		let storage = localStorage.getItem('favItem' + props.i || '0');
 		if (storage === null) {
-			localStorage.setItem(('favItem' + (props.i)), JSON.stringify(props.items));
+			localStorage.setItem('favItem' + props.i, JSON.stringify(props.items));
+		} else {
+			localStorage.removeItem('favItem' + props.i);
 		}
-		else {
-			localStorage.removeItem('favItem' + (props.i));
-		}
-		console.log(favorites)
-	}
+		console.log(props.items);
+		console.log(favorites);
+	};
 
 	return (
 		<Table striped bordered hover>
@@ -204,21 +204,23 @@ function App(): JSX.Element {
 								missions,
 							},
 							i,
-							items,
+							items
 						) => (
-							<tr >
+							<tr>
 								<td>
-									{favorites.includes(i) ? (
-										<IoIosHeart 
-										onClick={() => addFav({ items, i})}
-										style={{ color: 'blue'}}
-										/>
-									): (
-										<IoIosHeartEmpty 
-										onClick={() => addFav({ items, i})}
-										style={{ color: 'blue'}}
-										/>
-									)}
+									<div className={`${styles.headers}`}>
+										{favorites.includes(i) ? (
+											<IoIosHeart
+												onClick={() => addFav({ items, i })}
+												style={{ color: 'blue' }}
+											/>
+										) : (
+											<IoIosHeartEmpty
+												onClick={() => addFav({ items, i })}
+												style={{ color: 'blue' }}
+											/>
+										)}
+									</div>
 								</td>
 								<td>{mission_name}</td>
 								<td>
