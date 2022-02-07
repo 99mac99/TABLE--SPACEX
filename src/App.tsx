@@ -53,6 +53,7 @@ function App(): JSX.Element {
 	const [sortOrder, setSortOrder] = useState<SortOrder>('ascn');
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
 	const [check, setCheck] = useState(new Array(10).fill(false));
+	
 
 	const sortedData = useCallback(
 		() =>
@@ -60,14 +61,30 @@ function App(): JSX.Element {
 		[state, sortKey, sortOrder]
 	);
 
-	// useEffect(() => {
-	// 	// window.localStorage.setItem(item , check)
-	// 	if(check) {
-	// 		const checkBoxes = check.forEach( true, ,  )
-	// 	}
 
-	// },[check]);
+	useEffect(() =>{
 
+		function boxx (item: boolean) {
+			return item === true
+		}
+
+		const boxFilter = check.filter(boxx)
+		console.log(boxFilter)
+
+		function addTo (item:any) {
+			return localStorage.setItem('item', item)
+		}
+
+		boxFilter.forEach(addTo)
+
+		// const box = check.map((item, index ) => item === true ? localStorage.setItem('index', JSON.stringify(index)) : 'didnt work')
+		// console.log(box)
+
+
+
+	}, [check])
+
+	
 	useEffect(() => {
 		if (data) {
 			const normalizedData = data.launches.map((launch) => {
@@ -78,7 +95,7 @@ function App(): JSX.Element {
 				return { ...launch, missions };
 			});
 			setState(normalizedData);
-			console.log(normalizedData);
+			// console.log(normalizedData);
 		}
 	}, [data]);
 
@@ -140,12 +157,15 @@ function App(): JSX.Element {
 		setSortKey(key);
 	}
 
+
 	const handleOnChange = (position: number | string) => {
 		const updatedCheckedState = check.map((item, index) =>
 			index === position ? !item : item
 		);
-		setCheck(updatedCheckedState);
-		console.log(updatedCheckedState);
+		setCheck(updatedCheckedState)
+		
+		
+		
 	};
 
 	return (
@@ -185,22 +205,22 @@ function App(): JSX.Element {
 							index,
 							item
 						) => (
-							<tr key={index}>
+							<tr >
 								<td>
 									<div className={`${styles.headers}`}>
 										<input
-											// id={`custom-checkbox-${index}`}
+											id={id}
 											type='checkbox'
 											checked={check[index]}
 											onChange={() => {
-												localStorage.setItem(
-													JSON.stringify(index),
-													mission_name
-												);
-												handleOnChange(index);
-											}}
-
-											// onChange={() => addDataIntoCache( 'cache') }
+											// 	localStorage.setItem(
+											// 		JSON.stringify(index),
+											// 		mission_name
+											// 	);
+											// 	handleOnChange(index);
+											handleOnChange(index)
+											}
+											}
 										></input>
 									</div>
 								</td>
