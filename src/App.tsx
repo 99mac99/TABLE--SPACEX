@@ -18,7 +18,7 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 // import 'moment-timezone';
 
 interface ILaunch {
-	i: string  | number ;
+	i: string | number;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -29,7 +29,7 @@ interface ILaunch {
 }
 
 interface IMission {
-	i: string  | number ;
+	i: string | number;
 	rocket: any;
 	item: string[] | boolean | number;
 	index: number;
@@ -37,7 +37,7 @@ interface IMission {
 	description: string;
 }
 interface MyState {
-	i: string  | number ;
+	i: string | number;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -46,7 +46,7 @@ interface MyState {
 }
 
 interface IState extends ILaunch {
-	i: string  | number ;
+	i: string | number;
 	item: string[] | boolean | number;
 	index: number;
 	id: string;
@@ -58,7 +58,9 @@ function App(): JSX.Element {
 	const [sortKey, setSortKey] = useState<SortKeys>('id');
 	const [sortOrder, setSortOrder] = useState<SortOrder>('ascn');
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
-	const [favorites, setFavorites] = useState([] as Array<number>);
+	const [favorites, setFavorites] = useState([] as Array<string>);
+
+	console.log('data', data);
 
 	const sortedData = useCallback(
 		() =>
@@ -83,7 +85,7 @@ function App(): JSX.Element {
 				return { ...launch, missions };
 			});
 			setState(normalizedData);
-			// console.log(normalizedData);
+			console.log(normalizedData);
 		}
 	}, [data]);
 
@@ -145,29 +147,19 @@ function App(): JSX.Element {
 		setSortKey(key);
 	}
 
-	const addFav = (props: any) => {
-		let array = favorites;
-		let addArray = true;
-		array.map((item: any, key: number) => {
-			if (item === props.i) {
-				array.splice(key, 1);
-				addArray = false;
-			}
-		});
-		if (addArray) {
-			array.push(props.i);
-		}
-		setFavorites([...array]);
-		localStorage.setItem('favorites', JSON.stringify(favorites));
-		let storage = localStorage.getItem('favItem' + props.i || '0');
-		if (storage === null) {
-			localStorage.setItem('favItem' + props.i, JSON.stringify(props.items));
+	const addFav = (id: string, isChecked: boolean = false) => {
+		console.log('!!!', id, isChecked);
+		if (isChecked) {
+			setFavorites([...favorites, id]);
+			localStorage.setItem('favorites', JSON.stringify([...favorites, id]));
 		} else {
-			localStorage.removeItem('favItem' + props.i);
+			const filtered = favorites.filter((item) => item !== id);
+			setFavorites(filtered);
+			localStorage.setItem('favorites', JSON.stringify(filtered));
 		}
-		console.log(props.items);
-		console.log(favorites);
 	};
+
+	console.log(' lol ', sortedData());
 
 	return (
 		<Table striped bordered hover>
@@ -209,14 +201,14 @@ function App(): JSX.Element {
 							<tr>
 								<td>
 									<div className={`${styles.headers}`}>
-										{favorites.includes(i) ? (
+										{favorites.includes(mission_name) ? (
 											<IoIosHeart
-												onClick={() => addFav({ items, i })}
+												onClick={() => addFav(mission_name)}
 												style={{ color: 'blue' }}
 											/>
 										) : (
 											<IoIosHeartEmpty
-												onClick={() => addFav({ items, i })}
+												onClick={() => addFav(mission_name, true)}
 												style={{ color: 'blue' }}
 											/>
 										)}
