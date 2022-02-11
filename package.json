@@ -1,7 +1,7 @@
 {
   "name": "table-spacex",
   "version": "0.1.0",
-  "homepage": "/build",
+  "homepage": "build",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.5.6",
@@ -41,8 +41,8 @@
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postinstall" : "npm run build tsc"
+    "eject": "react-scripts eject"
+    
   },
   "eslintConfig": {
     "extends": [
