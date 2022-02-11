@@ -6,8 +6,6 @@
 // app.listen(PORT, ( ()=> console.log(`Listening on port ~${PORT}`)))
 
 const express = require('express');
-// eslint-disable-next-line no-unused-vars
-// const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
