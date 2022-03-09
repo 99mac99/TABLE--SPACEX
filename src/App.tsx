@@ -147,7 +147,7 @@ function App() {
 				{loading ? (
 					<LoadingIcon />
 				) : (
-					sortedData().map(({ launch_date_utc, mission_name, missions }) => (
+					sortedData().map(({ launch_date_utc, mission_name, missions}) => (
 						<Body
 							launch_date_utc={launch_date_utc}
 							mission_name={mission_name}

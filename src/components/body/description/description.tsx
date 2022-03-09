@@ -19,13 +19,13 @@ interface IState extends ILaunch {
 	missions: (IMission | undefined)[];
 }
 
-function Description({ missions }: IState) {
+function Description({ missions}: IState) {
 	return (
 		<>
 			<td width='50%'>
 				{missions.map((rocket: any) => (
 					<a>{rocket.description}</a>
-                    ))}
+					))}
 					
 			</td>
 		</>
