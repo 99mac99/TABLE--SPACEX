@@ -4,22 +4,19 @@ import React, {
 	useCallback,
 	MouseEventHandler,
 } from 'react';
-import { Col, Row, Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_MISSION } from './getMission';
-import styles from './headers.module.css';
-import { Button } from 'react-bootstrap';
+import styles from './components/header/headers.module.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import Moment from 'react-moment';
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
-
-// import 'moment-timezone';
+import Body from './components/body/body';
+import FavoriteHeader from './components/header/favoriteHeader/favoriteHeader';
+import DescriptionHeader from './components/header/descriptionHeader/descriptionHeader';
+import LoadingIcon from './components/body/loadingIcon/loadingIcon';
 
 interface ILaunch {
-	i: string | number;
-	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	mission_id: string[];
@@ -29,16 +26,11 @@ interface ILaunch {
 }
 
 interface IMission {
-	i: string | number;
-	rocket: any;
-	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	description: string;
 }
 interface MyState {
-	i: string | number;
-	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	launches: ILaunch[];
@@ -46,34 +38,21 @@ interface MyState {
 }
 
 interface IState extends ILaunch {
-	i: string | number;
-	item: string[] | boolean | number;
 	index: number;
 	id: string;
 	missions: (IMission | undefined)[];
 }
 
-function App(): JSX.Element {
+function App() {
 	const [state, setState] = useState<IState[]>([]);
 	const [sortKey, setSortKey] = useState<SortKeys>('id');
 	const [sortOrder, setSortOrder] = useState<SortOrder>('ascn');
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
-	const [favorites, setFavorites] = useState([] as Array<string>);
 
-	console.log('data', data);
-
-	const sortedData = useCallback(
-		() =>
+	const sortedData = useCallback(() =>
 			sortData({ tableData: state, sortKey, reverse: sortOrder === 'desc' }),
 		[state, sortKey, sortOrder]
 	);
-
-	const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
-	useEffect(() => {
-		if (getArray !== 0) {
-			setFavorites([...getArray]);
-		}
-	}, []);
 
 	useEffect(() => {
 		if (data) {
@@ -81,11 +60,9 @@ function App(): JSX.Element {
 				const missions = launch.mission_id.map((id) =>
 					data.missions.find((mission) => mission.id === id)
 				);
-
 				return { ...launch, missions };
 			});
 			setState(normalizedData);
-			console.log(normalizedData);
 		}
 	}, [data]);
 
@@ -98,7 +75,6 @@ function App(): JSX.Element {
 	const headers: { key: SortKeys; label: string }[] = [
 		{ key: 'mission_name', label: 'Nazwa' },
 		{ key: 'launch_date_utc', label: 'Data' },
-		// { key: 'i', label: 'Ulubione' },
 	];
 
 	function sortData({
@@ -115,11 +91,9 @@ function App(): JSX.Element {
 		const sortedData = state.sort((a, b) => {
 			return a[sortKey] > b[sortKey] ? 1 : -1;
 		});
-
 		if (reverse) {
 			return sortedData.reverse();
 		}
-
 		return sortedData;
 	}
 
@@ -147,29 +121,15 @@ function App(): JSX.Element {
 		setSortKey(key);
 	}
 
-	const addFav = (id: string, isChecked: boolean = false) => {
-		console.log('!!!', id, isChecked);
-		if (isChecked) {
-			setFavorites([...favorites, id]);
-			localStorage.setItem('favorites', JSON.stringify([...favorites, id]));
-		} else {
-			const filtered = favorites.filter((item) => item !== id);
-			setFavorites(filtered);
-			localStorage.setItem('favorites', JSON.stringify(filtered));
-		}
-	};
-
-	console.log(' lol ', sortedData());
-
 	return (
 		<Table striped bordered hover>
 			<thead>
 				<tr>
-					<th className={`${styles.headers}`}>Ulubione</th>
+					<FavoriteHeader />
 					{headers.map((roww) => {
 						return (
 							<th key={roww.key}>
-								{roww.label}{' '}
+								{roww.label}
 								<SortButton
 									columnKey={roww.key}
 									onClick={() => changeSort(roww.key)}
@@ -178,54 +138,24 @@ function App(): JSX.Element {
 							</th>
 						);
 					})}
-					<th className={`${styles.headers}`}>Opis</th>
+					<DescriptionHeader />
 				</tr>
 			</thead>
 			<tbody>
 				{loading ? (
-					<h1>loading...</h1>
+					<LoadingIcon />
 				) : (
-					sortedData().map(
-						(
-							{
-								launch_date_utc,
-								mission_name,
-								mission_id,
-								description,
-								id,
-								missions,
-							},
-							i,
-							items
-						) => (
-							<tr>
-								<td>
-									<div className={`${styles.headers}`}>
-										{favorites.includes(mission_name) ? (
-											<IoIosHeart
-												onClick={() => addFav(mission_name)}
-												style={{ color: 'blue' }}
-											/>
-										) : (
-											<IoIosHeartEmpty
-												onClick={() => addFav(mission_name, true)}
-												style={{ color: 'blue' }}
-											/>
-										)}
-									</div>
-								</td>
-								<td>{mission_name}</td>
-								<td>
-									<Moment date={launch_date_utc} format='dd MM yyyy, HH:mm' />
-								</td>
-								<td width='50%'>
-									{missions.map((rocket: any) => (
-										<a>{rocket.description}</a>
-									))}
-								</td>
-							</tr>
-						)
-					)
+					sortedData().map(({ launch_date_utc, mission_name, missions }) => (
+						<Body
+							launch_date_utc={launch_date_utc}
+							mission_name={mission_name}
+							missions={missions}
+							index={0}
+							id={''}
+							mission_id={[]}
+							description={[]}
+						/>
+					))
 				)}
 			</tbody>
 		</Table>
