@@ -2,10 +2,6 @@
 // const app = express()
 // const PORT = (process.env.PORT || 3000)
 
-<<<<<<< HEAD
-app.use(express.static('build'));
-app.listen(PORT, ( ()=> console.log(`Listening on port ~${PORT}`)))
-=======
 // app.use(express.static('build'));
 // app.listen(PORT, ( ()=> console.log(`Listening on port ~${PORT}`)))
 
@@ -21,4 +17,3 @@ app.get('/', (req, res) =>
 );
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
->>>>>>> f08f54b31ba34ffa5e861d5c20550537aea20588
