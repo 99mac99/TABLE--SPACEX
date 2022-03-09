@@ -18,12 +18,6 @@ interface IMission {
 	id: string;
 	description: string;
 }
-interface MyState {
-	index: number;
-	id: string;
-	launches: ILaunch[];
-	missions: IMission[];
-}
 
 interface IState extends ILaunch {
 	index: number;

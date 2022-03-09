@@ -88,7 +88,9 @@ function App() {
 	}) {
 		if (!sortKey) return tableData;
 
-		const sortedData = state.sort((a, b) => {
+		const sortedState = state;
+
+		const sortedData = sortedState.sort((a, b) => {
 			return a[sortKey] > b[sortKey] ? 1 : -1;
 		});
 		if (reverse) {
