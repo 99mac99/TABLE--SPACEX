@@ -4,7 +4,7 @@ import styles from '../headers.module.css'
 function FavoriteHeader () {
     return (
         <>
-            <th className={`${styles.headers}`}>Ulubione</th>
+            <p className={`${styles.headers}`}>Ulubione</p>
         </>
 
     )

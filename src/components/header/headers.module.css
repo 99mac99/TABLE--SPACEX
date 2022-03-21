@@ -1,10 +1,12 @@
 .headers {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    color:black;
- }
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: black;
+}
 
- .lol {
-     width: 50%;
- }
+.headersBox {
+	display: flex;
+	justify-content: space-around;
+	align-items: baseline;
+}
