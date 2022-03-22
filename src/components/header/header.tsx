@@ -2,6 +2,9 @@ import FavoriteHeader from './favoriteHeader/favoriteHeader';
 import DescriptionHeader from './descriptionHeader/descriptionHeader';
 import DateHeader from './dateHeader/DateHeader';
 import NameHeader from './nameHeader/nameHeader';
+import styles from './headers.module.css';
+import { Button } from 'react-bootstrap';
+import {useState,MouseEventHandler} from 'react'
 
 interface ILaunch {
 	id: string;
@@ -27,6 +30,11 @@ interface IState extends ILaunch {
 }
 
 function Headers() {
+	 
+	const headers = [
+		{key:'mission_name' , label: 'Nazwa'},
+		{key: 'launch_date_utc' , label: 'data'}
+	]
 
 	return (
 		<>
@@ -34,12 +42,18 @@ function Headers() {
 				<th>
 					<FavoriteHeader />
 				</th>
-				<th>
-					<NameHeader />
-				</th>
-				<th>
-					<DateHeader />
-				</th>
+				{headers.map((row) => {
+					return (
+						<th key={row.key}>
+							<div className={`${styles.headersBox}`}>
+								<p className={`${styles.headers}`}></p>
+								<Button 
+									className={`${styles.button} bi bi-arrow-down-up btn-sm`}
+								></Button>
+							</div>
+						</th>
+					);
+				})}
 				<th>
 					<DescriptionHeader />
 				</th>

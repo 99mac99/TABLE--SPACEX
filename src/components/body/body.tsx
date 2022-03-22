@@ -20,14 +20,14 @@ interface IState extends ILaunch {
 	missions: (IMission | undefined)[];
 }
 
-function Body({ launch_date_utc, mission_name, missions }: ILaunch) {
+function Body({ launch_date_utc, mission_name, missions}: ILaunch) {
 	return (
 		<>
 			<tr>
-				<Favorites mission_name={mission_name} />
-				<MissionName mission_name={mission_name} />
+				<Favorites mission_name={mission_name}  />
+				<MissionName mission_name={mission_name}  />
 				<Date launch_date_utc={launch_date_utc} />
-				<Description  missions={missions}/>
+				<Description  missions={missions} />
 			</tr>
 		</>
 	);
