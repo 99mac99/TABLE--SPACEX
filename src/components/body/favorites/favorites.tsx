@@ -1,34 +1,7 @@
 import { useState, useEffect } from 'react';
-import Moment from 'react-moment';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import styles from '../../header/headers.module.css';
 
-interface ILaunch {
-	index: number;
-	id: string;
-	mission_id: string[];
-	launch_date_utc: number;
-	mission_name: string;
-	description: string[];
-}
-
-interface IMission {
-	index: number;
-	id: string;
-	description: string;
-}
-interface MyState {
-	index: number;
-	id: string;
-	launches: ILaunch[];
-	missions: IMission[];
-}
-
-interface IState extends ILaunch {
-	index: number;
-	id: string;
-	missions: (IMission | undefined)[];
-}
 
 function Favorites({ mission_name }: { mission_name: string }) {
 	const [favorites, setFavorites] = useState([] as Array<string>);

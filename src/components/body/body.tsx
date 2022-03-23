@@ -2,23 +2,8 @@ import Favorites from './favorites/favorites';
 import MissionName from './missionName/missionName';
 import Date from './date/date';
 import Description from './description/description';
+import { ILaunch } from '../interfaces/interfaces'
 
-interface ILaunch {
-	mission_id: string[];
-	launch_date_utc: number;
-	mission_name: string;
-	missions: (IMission | undefined)[];
-}
-
-interface IMission {
-	id: string;
-	description: string;
-}
-
-interface IState extends ILaunch {
-	id: string;
-	missions: (IMission | undefined)[];
-}
 
 function Body({ launch_date_utc, mission_name, missions}: ILaunch) {
 	return (
