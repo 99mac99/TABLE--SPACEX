@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table} from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useQuery } from '@apollo/client';
 import { GET_MISSION } from './getMission';
-import styles from './components/header/headers.module.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Body from './components/body/body';
 import LoadingIcon from './components/body/loadingIcon/loadingIcon';
 import FavoriteHeader from './components/header/favoriteHeader/favoriteHeader';
 import DescriptionHeader from './components/header/descriptionHeader/descriptionHeader';
 import { ISort, IState, MyState } from './components/interfaces/interfaces';
+import NameHeader from './components/header/nameHeader/nameHeader';
+import DateHeader from './components/header/dateHeader/DateHeader';
 
 function NewApp() {
 	const { data, loading, error } = useQuery<MyState, {}>(GET_MISSION);
@@ -47,24 +48,8 @@ function NewApp() {
 			<thead>
 				<tr>
 					<FavoriteHeader />
-					<th>
-						<div className={`${styles.headersBox}`}>
-							<p className={`${styles.headers}`}>Nazwa</p>
-							<Button
-								onClick={() => sortBy('mission_name')}
-								className={`${styles.button} bi bi-arrow-down-up btn-sm`}
-							></Button>
-						</div>
-					</th>
-					<th>
-						<div className={`${styles.headersBox}`}>
-							<p className={`${styles.headers}`}>Data</p>
-							<Button
-								onClick={() => sortBy('launch_date_utc')}
-								className={`${styles.button} bi bi-arrow-down-up btn-sm`}
-							></Button>
-						</div>
-					</th>
+					<NameHeader sort={sortBy}/>
+					<DateHeader sort={sortBy}/>
 					<DescriptionHeader />
 				</tr>
 			</thead>
