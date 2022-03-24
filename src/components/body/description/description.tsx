@@ -7,7 +7,7 @@ function Description({ missions }: IDescription) {
 		<>
 			<td width='50%'>
 				{missions.map((rocket: any) => (
-					<a>{rocket.description}</a>
+					<a key={rocket.id}>{rocket.description}</a>
 				))}
 			</td>
 		</>

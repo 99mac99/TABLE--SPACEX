@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useQuery } from '@apollo/client';
 import { GET_MISSION } from './getMission';
@@ -47,10 +47,10 @@ function NewApp() {
 		<Table striped bordered hover>
 			<thead>
 				<tr>
-					<FavoriteHeader />
-					<NameHeader sort={sortBy}/>
-					<DateHeader sort={sortBy}/>
-					<DescriptionHeader />
+					<FavoriteHeader key={'Favorite'} />
+					<NameHeader sort={sortBy} key={'Name'} />
+					<DateHeader sort={sortBy} key={'Data'} />
+					<DescriptionHeader key={'Description'} />
 				</tr>
 			</thead>
 			<tbody>
@@ -58,14 +58,14 @@ function NewApp() {
 					<LoadingIcon />
 				) : (
 					state.map(
-						({ mission_id, launch_date_utc, mission_name, missions, id }) => (
+						({ mission_id, launch_date_utc, mission_name, missions,id}) => (
 							<Body
-								id={id}
+								key={mission_name}
 								missions={missions}
 								mission_id={mission_id}
 								launch_date_utc={launch_date_utc}
 								mission_name={mission_name}
-							/>
+								id={id} 					/>
 						)
 					)
 				)}

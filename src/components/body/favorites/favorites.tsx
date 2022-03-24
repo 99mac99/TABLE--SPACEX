@@ -3,7 +3,7 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import styles from '../../header/headers.module.css';
 
 
-function Favorites({ mission_name }: { mission_name: string }) {
+function Favorites({ mission_name}: { mission_name: string}) {
 	const [favorites, setFavorites] = useState([] as Array<string>);
 
 	const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
@@ -27,7 +27,7 @@ function Favorites({ mission_name }: { mission_name: string }) {
 
 	return (
 		<>
-			<td>
+			<td >
 				<div className={`${styles.headers}`}>
 					{favorites.includes(mission_name) ? (
 						<IoIosHeart
